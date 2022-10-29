@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YeVjKAyu+PwRmzFui95g9fzt6ztib+svEdSg03oWkWT3sn7rPz3aOpEmS6l79tpUpW4mjG2criecQ0rSNU4SDw==",
+  "dgSpecHash": "7szb0aOMwvf/J9rNN4Qw4z5Dy0ejEgAYE1F500lmZDRF0dIkJHm3aY6pJtXI6eJudVo9uMNrNZkl0tmYUv/vHw==",
   "success": true,
   "projectFilePath": "/Users/xijkstra/Projects/CyberForce/CyberForce/CyberForce.csproj",
   "expectedPackageFiles": [
@@ -11,10 +11,11 @@
     "/Users/xijkstra/.nuget/packages/k4os.compression.lz4/1.2.6/k4os.compression.lz4.1.2.6.nupkg.sha512",
     "/Users/xijkstra/.nuget/packages/k4os.compression.lz4.streams/1.2.6/k4os.compression.lz4.streams.1.2.6.nupkg.sha512",
     "/Users/xijkstra/.nuget/packages/k4os.hash.xxhash/1.0.6/k4os.hash.xxhash.1.0.6.nupkg.sha512",
-    "/Users/xijkstra/.nuget/packages/microsoft.extensions.logging.abstractions/2.1.0/microsoft.extensions.logging.abstractions.2.1.0.nupkg.sha512",
+    "/Users/xijkstra/.nuget/packages/microsoft.extensions.logging.abstractions/5.0.0/microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
     "/Users/xijkstra/.nuget/packages/microsoft.netcore.platforms/2.0.0/microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "/Users/xijkstra/.nuget/packages/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "/Users/xijkstra/.nuget/packages/mysql.data/8.0.31/mysql.data.8.0.31.nupkg.sha512",
+    "/Users/xijkstra/.nuget/packages/novell.directory.ldap.netstandard/3.6.0/novell.directory.ldap.netstandard.3.6.0.nupkg.sha512",
     "/Users/xijkstra/.nuget/packages/openpop.net/2.0.6.1120/openpop.net.2.0.6.1120.nupkg.sha512",
     "/Users/xijkstra/.nuget/packages/portable.bouncycastle/1.9.0/portable.bouncycastle.1.9.0.nupkg.sha512",
     "/Users/xijkstra/.nuget/packages/system.buffers/4.5.1/system.buffers.4.5.1.nupkg.sha512",

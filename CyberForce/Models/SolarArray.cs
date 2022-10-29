@@ -10,6 +10,7 @@ namespace CyberForce.Models
         public int Temperature { get; set; }
         public int TrackerTilt { get; set; }
         public int AzimuthAngle { get; set; }
+        public int PowerGeneration { get; set; }
     }
 }
 

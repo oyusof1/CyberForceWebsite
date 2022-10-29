@@ -22,16 +22,36 @@
             <div class="col">
                 <div class="card text-center">
                     <div class="card-header">
-                        List of Solar Arrays
+                        Solar Arrays
                     </div>
                     <div class="card-body">
-                        <ul class="list-unstyled p-1">
-                            <li>Solar Array 1</li>
-                            <li>Solar Array 2</li>
-                            <li>Solar Array 3</li>
-                            <li>Solar Array 4</li>
-                            <li>Solar Array 5</li>
-                        </ul>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Voltage</th>
+                                    <th scope="col">Current</th>
+                                    <th scope="col">Temp</th>
+                                    <th scope="col">Tilt</th>
+                                    <th scope="col">Azimuth</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @*@foreach (var array in Model.solarArrays)*@
+                                @*{
+                                    <tr>
+                                        <td>@array.ArrayId</td>
+                                        <td>@array.SolarStatus</td>
+                                        <td>@array.OutputVoltage</td>
+                                        <td>@array.OutputCurrent</td>
+                                        <td>@array.Temperature</td>
+                                        <td>@array.TrackerTilt</td>
+                                        <td>@array.AzimuthAngle</td>
+                                    </tr>
+                                }*@
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -41,17 +61,23 @@
                         Power Generation
                     </div>
                     <div class="card-body">
-                        <ul class="list-unstyled p-1">
-                            <li>23232</li>
-                            <li>143</li>
-                            <li>3244</li>
-                            <li>90877</li>
-                            <li>78886</li>
-                        </ul>
-
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Power</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @*@foreach (var array in Model.solarArrays)
+                                {
+                                    <tr>
+                                        <td>@array.PowerGeneration</td>
+                                    </tr>
+                                }*@
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

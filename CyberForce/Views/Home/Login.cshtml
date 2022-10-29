@@ -6,9 +6,10 @@
 <div class="d-flex justify-content-center flex-nowrap">
     <form enctype="multipart/form-data" asp-controller="Home" asp-action="SignIn" id="loginForm" class="border shadow p-5 m-5 rounded w-50">
         <h1 class="h3 text-center">Please sign in</h1>
+        <p class="text-danger">@TempData["LoginFailed"]</p>
         <div class="p-2">
-            <label for="email">Email address</label>
-            <input type="email" asp-for="Email" class="form-control" name="email" id="email" placeholder="name@example.com">
+            <label for="email">Username</label>
+            <input type="text" asp-for="Email" class="form-control" name="email" id="email" placeholder="Username">
         </div>
         <div class="p-2">
             <label for="password">Password</label>
@@ -33,19 +34,11 @@
 
 
         $("#loginForm").validate({
-            rules: {
-                email: {
-                    required: true
-                },
                 password: {
                     required: true
                 }
             },
             errorClass: "invalid"
-        });
-
-        $(function () {
-            $("#submit").prop("disabled", true);
         });
 
         $form.on("blur", () => {

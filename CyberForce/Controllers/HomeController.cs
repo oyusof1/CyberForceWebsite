@@ -79,7 +79,16 @@ public class HomeController : Controller
     [AllowAnonymous]
     public IActionResult Login()
     {
-        return View();
+        var identity = (ClaimsIdentity)User.Identity;
+        if (identity.IsAuthenticated)
+        {
+            return RedirectToAction("Index");
+        } else
+        {
+            return View();
+
+        }
+
     }
 
     [Authorize(Policy = "Admin")]
@@ -169,7 +178,7 @@ public class HomeController : Controller
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
         DataService service = new DataService(_connectionString);
-        var (user, loginValid) = service.ValidateUser(form.Email, form.Password);
+        var (user, loginValid) = service.ValidateUser(form.Email.Split('@')[0], form.Password);
 
         AdminViewModel vm = new();
         //string _connectionString = _configuration.GetConnectionString("DefaultConnection");
@@ -181,11 +190,12 @@ public class HomeController : Controller
         {
             TempData["LoginFailed"] = $"The username or password is incorrect.";
 
-            return Redirect("Login");
+            return RedirectToAction("Login");
         }
         else
         {
-            await SignInUser(form.Email, user.userRole);
+            await SignInUser(user.sAMAccountName, user.userRole);
+            TempData["LoginFailed"] = "";
             if (user.userRole == "Admin")
             {
                 return RedirectToAction("Admin", vm);

@@ -1,0 +1,51 @@
+﻿html {
+  font-size: 14px;
+  overflow-x: hidden;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+/*body {
+  margin-bottom: 60px;
+}*/
+
+.newsletter {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    align-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer {
+    position: unset !important;
+}
+
+.jumbotron {
+    color: white;
+    background-image: url("https://images.pexels.com/photos/159397/solar-panel-array-power-sun-electricity-159397.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 75vh;
+}
+
+.blueBtn {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.invalid {
+    color: red;
+}

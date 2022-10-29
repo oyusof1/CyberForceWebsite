@@ -46,6 +46,10 @@
               "target": "Package",
               "version": "[8.0.31, )"
             },
+            "Novell.Directory.Ldap.NETStandard": {
+              "target": "Package",
+              "version": "[3.6.0, )"
+            },
             "OpenPop.NET": {
               "target": "Package",
               "version": "[2.0.6.1120, )"

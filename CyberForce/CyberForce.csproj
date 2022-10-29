@@ -16,6 +16,7 @@
     <None Remove="Models\ViewModels\" />
     <None Remove="System.DirectoryServices" />
     <None Remove="System.DirectoryServices.AccountManagement" />
+    <None Remove="Novell.Directory.Ldap.NETStandard" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP" Version="42.0.0" />
@@ -25,6 +26,7 @@
     <PackageReference Include="OpenPop.NET" Version="2.0.6.1120" />
     <PackageReference Include="System.DirectoryServices" Version="6.0.0" />
     <PackageReference Include="System.DirectoryServices.AccountManagement" Version="6.0.0" />
+    <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.6.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
