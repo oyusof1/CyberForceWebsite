@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1703.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberForce", "CyberForce\CyberForce.csproj", "{4C421F70-964C-4AC0-9A77-2D8062A3033F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{40859541-5C4C-4320-822D-B7A4F81EBCB9}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4C421F70-964C-4AC0-9A77-2D8062A3033F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C421F70-964C-4AC0-9A77-2D8062A3033F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C421F70-964C-4AC0-9A77-2D8062A3033F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C421F70-964C-4AC0-9A77-2D8062A3033F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B80A9E5B-E74E-4954-932C-3002CA6CE4B7}
+	EndGlobalSection
+EndGlobal

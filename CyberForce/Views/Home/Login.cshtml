@@ -1,0 +1,58 @@
+﻿@model Form
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="d-flex justify-content-center flex-nowrap">
+    <form enctype="multipart/form-data" asp-controller="Home" asp-action="SignIn" id="loginForm" class="border shadow p-5 m-5 rounded w-50">
+        <h1 class="h3 text-center">Please sign in</h1>
+        <div class="p-2">
+            <label for="email">Email address</label>
+            <input type="email" asp-for="Email" class="form-control" name="email" id="email" placeholder="name@example.com">
+        </div>
+        <div class="p-2">
+            <label for="password">Password</label>
+            <input type="password" asp-for="Password" class="form-control" name="password" id="password" placeholder="Password">
+        </div>
+        <div class="d-flex p-2 justify-content-center">
+            <button class="btn p-3 w-25 btn-primary" id="submit" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        document.getElementById('submitBtn').addEventListener('click', function (e) {
+            e.preventDefault();
+        });
+        var $form = $("#loginForm");
+        var $submitbutton = $("#submit");
+
+        $("#password-error, #email-error").removeClass("form-floating")
+
+
+        $("#loginForm").validate({
+            rules: {
+                email: {
+                    required: true
+                },
+                password: {
+                    required: true
+                }
+            },
+            errorClass: "invalid"
+        });
+
+        $(function () {
+            $("#submit").prop("disabled", true);
+        });
+
+        $form.on("blur", () => {
+            if ($form.valid()) {
+                $submitbutton.removeAttr("disabled");
+            } else {
+                $submitbutton.attr("disabled", "disabled");
+            }
+        });</script>
+}
