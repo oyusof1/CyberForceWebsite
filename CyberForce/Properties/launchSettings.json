@@ -11,7 +11,7 @@
     "CyberForce": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:9857",
+      "applicationUrl": "http://localhost:46850",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

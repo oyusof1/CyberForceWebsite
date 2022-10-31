@@ -17,6 +17,11 @@
     <None Remove="System.DirectoryServices" />
     <None Remove="System.DirectoryServices.AccountManagement" />
     <None Remove="Novell.Directory.Ldap.NETStandard" />
+    <None Remove="Newtonsoft.Json" />
+    <None Remove="Microsoft.AspNetCore.Session" />
+    <None Remove="Microsoft.jQuery.Unobtrusive.Ajax" />
+    <None Remove="jQuery.Ajax.Unobtrusive" />
+    <None Remove="MimeKit" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentFTP" Version="42.0.0" />
@@ -27,6 +32,10 @@
     <PackageReference Include="System.DirectoryServices" Version="6.0.0" />
     <PackageReference Include="System.DirectoryServices.AccountManagement" Version="6.0.0" />
     <PackageReference Include="Novell.Directory.Ldap.NETStandard" Version="3.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Microsoft.jQuery.Unobtrusive.Ajax" Version="3.2.6" />
+    <PackageReference Include="jQuery.Ajax.Unobtrusive" Version="2.0.20710" />
+    <PackageReference Include="MimeKit" Version="3.4.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />

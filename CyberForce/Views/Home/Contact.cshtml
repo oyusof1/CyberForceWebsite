@@ -87,15 +87,10 @@
         var $form = $("#contactForm");
         var $submitbutton = $("#submit");
 
-        $(function () {
-            $("#submit").prop("disabled", true);
-        });
-
         $("#contactForm").validate({
             rules: {
                 phone: {
-                    required: true,
-                    phoneUS: true
+                    required: true
                 }
             },
             errorClass: "invalid"

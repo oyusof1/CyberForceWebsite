@@ -54,3 +54,5 @@
 /Users/xijkstra/Projects/CyberForce/CyberForce/obj/Release/net6.0/CyberForce.genruntimeconfig.cache
 /Users/xijkstra/Projects/CyberForce/CyberForce/obj/Release/net6.0/ref/CyberForce.dll
 /Users/xijkstra/Projects/CyberForce/CyberForce/bin/Release/net6.0/Novell.Directory.Ldap.NETStandard.dll
+/Users/xijkstra/Projects/CyberForce/CyberForce/bin/Release/net6.0/MimeKit.dll
+/Users/xijkstra/Projects/CyberForce/CyberForce/bin/Release/net6.0/Newtonsoft.Json.dll

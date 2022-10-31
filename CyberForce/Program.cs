@@ -2,7 +2,9 @@
 using System.Security.Claims;
 using CyberForce.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +23,16 @@ builder.Services.AddAuthorization(options =>
                                 .AddAuthenticationSchemes(CookieAuthenticationDefaults.AuthenticationScheme)
                               );
 });
+builder.Services.Configure<CookiePolicyOptions>(options =>
+    {
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+});
 
+builder.Services.Configure<CookieTempDataProviderOptions>(options => {
+    options.Cookie.IsEssential = true;
+
+});
 
 var app = builder.Build();
 
@@ -31,7 +42,6 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseCookiePolicy();
 app.UseAuthentication();

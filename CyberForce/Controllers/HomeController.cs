@@ -19,6 +19,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Principal;
 using Microsoft.AspNetCore.Authorization;
+using OpenPop.Mime;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Newtonsoft.Json;
+using MimeKit;
 
 namespace CyberForce.Controllers;
 
@@ -92,9 +96,22 @@ public class HomeController : Controller
     }
 
     [Authorize(Policy = "Admin")]
-    public IActionResult Admin()
+    public async Task<IActionResult> Admin()
     {
-        return View();
+        var identity = (ClaimsIdentity)User.Identity;
+        if (identity.HasClaim("Role", "Admin"))
+        {
+            DataService service = new DataService(_connectionString);
+            AdminViewModel vm = new();
+            vm.ftpListItems = await service.GetFtpListItems();
+            vm.messages = service.GetAllMessages("10.0.9.73", 110, false);
+            return View(vm);
+        }
+        else
+        {
+            return View("AccessDenied");
+
+        }
     }
 
     [HttpGet]
@@ -120,7 +137,7 @@ public class HomeController : Controller
         {
             if (form.File is not null)
             {
-                var client = new AsyncFtpClient("127.0.0.1");
+                var client = new AsyncFtpClient("10.0.9.73");
                 client.Config.ValidateAnyCertificate = true;
                 await client.Connect();
 
@@ -129,7 +146,7 @@ public class HomeController : Controller
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await form.File.CopyToAsync(stream);
-                    //await client.UploadFile(filePath, $"/Users/xijkstra/Documents/{form.File.FileName}");
+                    await client.UploadFile(filePath, form.File.FileName, FtpRemoteExists.Overwrite);
 
                     if (System.IO.File.Exists(filePath))
                     {
@@ -139,28 +156,50 @@ public class HomeController : Controller
 
                 await client.Disconnect();
 
-                var smtpClient = new SmtpClient("smtp.gmail")
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient();
+                mail.To.Add("admin@sunpartners.local");
+                mail.From = new MailAddress(form.Email);
+                mail.Subject = $"Contact Form - {form.Name}";
+                mail.IsBodyHtml = true;
+                mail.Body = $"<p>{form.Name} has filled out a contact form. Phone number: {form.Phone}</p>";
+                SmtpServer.Host = "10.0.9.73";
+                SmtpServer.Port = 25;
+                SmtpServer.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                try
                 {
-                    Port = 587,
-                    Credentials = new NetworkCredential("username", "password"),
-                    EnableSsl = true,
-                };
-
-                smtpClient.Send(form.Email, "recipient", $"Recieved a Contact Form from {form.Name}", $"Hello, my name is {form.Name}. I would like to be contacted at {form.Phone}");
-
+                    SmtpServer.Send(mail);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Exception Message: " + ex.Message);
+                    if (ex.InnerException != null)
+                        Debug.WriteLine("Exception Inner:   " + ex.InnerException);
+                }
             }
             else
             {
-                //var smtpClient = new SmtpClient("smtp.gmail")
-                //{
-                //    Port = 587,
-                //    Credentials = new NetworkCredential("username", "password"),
-                //    EnableSsl = true,
-                //};
-
-                //smtpClient.Send(form.Email, "recipient", $"Recieved a Contact Form from {form.Name}", $"Hello, my name is {form.Name}. I would like to be contacted at {form.Phone}");
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient();
+                mail.To.Add("admin@sunpartners.local");
+                mail.From = new MailAddress(form.Email);
+                mail.Subject = $"Contact Form - {form.Name}";
+                mail.IsBodyHtml = true;
+                mail.Body = $"<p>{form.Name} has filled out a contact form. Phone number: {form.Phone}</p>";
+                SmtpServer.Host = "10.0.9.73";
+                SmtpServer.Port = 25;
+                SmtpServer.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                try
+                {
+                    SmtpServer.Send(mail);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Exception Message: " + ex.Message);
+                    if (ex.InnerException != null)
+                        Debug.WriteLine("Exception Inner:   " + ex.InnerException);
+                }
             }
-
 
             return RedirectToAction("ContactThankYou");
         }
@@ -181,10 +220,8 @@ public class HomeController : Controller
         var (user, loginValid) = service.ValidateUser(form.Email.Split('@')[0], form.Password);
 
         AdminViewModel vm = new();
-        //string _connectionString = _configuration.GetConnectionString("DefaultConnection");
-        //DataService service = new DataService(_connectionString);
-        //vm.ftpListItems = await service.GetFtpListItems();
-        //vm.messages = service.GetAllMessages("hostname", 110, false, "username", "password");
+        vm.ftpListItems = await service.GetFtpListItems();
+        vm.messages = service.GetAllMessages("10.0.9.73", 110, false);
 
         if (!loginValid)
         {
@@ -198,7 +235,7 @@ public class HomeController : Controller
             TempData["LoginFailed"] = "";
             if (user.userRole == "Admin")
             {
-                return RedirectToAction("Admin", vm);
+                return View("Admin", vm);
             }
             return RedirectToAction("Index");
         }
@@ -228,6 +265,20 @@ public class HomeController : Controller
             CookieAuthenticationDefaults.AuthenticationScheme,
             new ClaimsPrincipal(claimsIdentity), authProperties);
     }
-    #endregion
 
+    [HttpPost]
+    public async Task<IActionResult> Download(string file)
+    {
+        var client = new AsyncFtpClient("10.0.9.73");
+        client.Config.ValidateAnyCertificate = true;
+        await client.Connect();
+
+        var downloadPath = $"/uploads/{file}";
+
+        var filePath = _appEnvironment.WebRootPath + $"/uploads/{file}";
+        var res = await client.DownloadFile($"{_appEnvironment.WebRootPath}/uploads/{file}", file);
+        return Ok(downloadPath);
+     }
+
+    #endregion
 }

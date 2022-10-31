@@ -11,8 +11,10 @@
 /Volumes/Shared/WebApp/K4os.Compression.LZ4.Streams.dll
 /Volumes/Shared/WebApp/K4os.Hash.xxHash.dll
 /Volumes/Shared/WebApp/Microsoft.Win32.SystemEvents.dll
+/Volumes/Shared/WebApp/MimeKit.dll
 /Volumes/Shared/WebApp/MySql.Data.dll
 /Volumes/Shared/WebApp/ZstdNet.dll
+/Volumes/Shared/WebApp/Newtonsoft.Json.dll
 /Volumes/Shared/WebApp/Novell.Directory.Ldap.NETStandard.dll
 /Volumes/Shared/WebApp/OpenPop.dll
 /Volumes/Shared/WebApp/BouncyCastle.Crypto.dll

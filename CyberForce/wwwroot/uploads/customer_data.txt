@@ -1,0 +1,21 @@
+nationality : GB
+name : Jack Peterson
+age : 44
+birthday : 17/06/1977
+mobile_number
+    number : 07537625268
+    provider : Sound Advertising
+address
+    house_number : 265
+    street : South Street
+    area : Basingstoke and Deane
+    postcode : RG21 3LQ
+email : Jack.Peterson@gmail.co.uk
+ip_address : 45.75.140.218
+social_security : UA718154E
+bank_card
+    card_number : 5573579597246203
+    provider : Mastercard
+    expiry_date : 5/23
+    cvv : 391
+driving_license : peter70617799AC 80

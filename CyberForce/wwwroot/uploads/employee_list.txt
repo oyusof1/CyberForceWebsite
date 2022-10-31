@@ -1,0 +1,22 @@
+name : Mike Smith
+age : 22
+birthday : 21/05/1999
+mobile_number
+    number : 07735167188
+    provider : Three
+address
+    house_number : 257
+    street : Park Road
+    area : Pembrokeshire
+    postcode : SA61 1YG
+email : Mike.Smith@hotmail.co.uk
+ip_address : 213.253.175.72
+social_security : FC812154X
+bank_card
+    card_number : 5573576189231788
+    provider : Mastercard
+    expiry_date : 5/31
+    cvv : 255
+driving_license : smith90521999BJ 20
+
+
