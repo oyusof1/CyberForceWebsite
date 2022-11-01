@@ -14,7 +14,7 @@
                         <p>@file</p>
                     </div>
                     <div class="col d-flex flex-column justify-content-between">
-                        <form asp-controller="Home" asp-action="Download" data-ajax-success="failed" data-ajax="true" data-ajax-method="POST">
+                        <form asp-controller="Home" asp-action="Download" data-ajax-success="success" data-ajax="true" data-ajax-method="POST">
                             @Html.Hidden("file", file)
                             <button type="submit" id="@file" class="btn m-1 btn-secondary">Download</button>
                         </form>
@@ -45,12 +45,19 @@
 @section Scripts {
 
     <script>
-        function failed(xhr) {
+        function success(xhr) {
             console.log(xhr);
             const link = document.createElement('a');
             link.href = xhr;
-            link.download = "file.txt";
+            link.download = xhr.split('/')[2];
             link.dispatchEvent(new MouseEvent('click'));
         };
+
+        $(document).ready(function () {
+            if (window.location.pathname === "/SignIn") {
+             window.location = `${window.location.origin}@Url.Action("Admin", "Home")`;
+            }    
+        });
+
     </script>
 }

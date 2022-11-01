@@ -32,8 +32,7 @@ public class HomeController : Controller
     private readonly IConfiguration _configuration;
     private readonly IWebHostEnvironment _appEnvironment;
     private readonly string _connectionString;
-
-
+    //private EventLog eventLog;
 
     public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IWebHostEnvironment appEnvironment)
     {
@@ -41,6 +40,9 @@ public class HomeController : Controller
         _configuration = configuration;
         _appEnvironment = appEnvironment;
         _connectionString = _configuration.GetConnectionString("DefaultConnection");
+        //eventLog = log;
+        //eventLog.Source = "WebApp";
+
     }
 
     #region Views
@@ -137,24 +139,27 @@ public class HomeController : Controller
         {
             if (form.File is not null)
             {
-                var client = new AsyncFtpClient("10.0.9.73");
-                client.Config.ValidateAnyCertificate = true;
-                await client.Connect();
-
-                var filePath = _appEnvironment.WebRootPath + $"/uploads/{form.File.FileName}";
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                using (var client = new AsyncFtpClient("10.0.9.73", "admin", "Linkclicker_02!"))
                 {
-                    await form.File.CopyToAsync(stream);
+                    client.Config.ValidateAnyCertificate = true;
+                    await client.Connect();
+
+                    var filePath = _appEnvironment.WebRootPath + $"/uploads/{form.File.FileName}";
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await form.File.CopyToAsync(stream);
+                    }
+
                     await client.UploadFile(filePath, form.File.FileName, FtpRemoteExists.Overwrite);
 
                     if (System.IO.File.Exists(filePath))
                     {
                         System.IO.File.Delete(filePath);
                     }
-                }
 
-                await client.Disconnect();
+                    await client.Disconnect();
+                }
 
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient();
@@ -165,6 +170,7 @@ public class HomeController : Controller
                 mail.Body = $"<p>{form.Name} has filled out a contact form. Phone number: {form.Phone}</p>";
                 SmtpServer.Host = "10.0.9.73";
                 SmtpServer.Port = 25;
+                SmtpServer.Credentials = new NetworkCredential("admin@sunpartners.local", "Linkclicker_02!");
                 SmtpServer.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
                 try
                 {
@@ -172,6 +178,12 @@ public class HomeController : Controller
                 }
                 catch (Exception ex)
                 {
+                    _logger.LogInformation(ex.ToString());
+                    using (EventLog eventLog = new EventLog("Application"))
+                    {
+                        eventLog.Source = "Application";
+                        eventLog.WriteEntry(ex.ToString(), EventLogEntryType.Information);
+                    }
                     Debug.WriteLine("Exception Message: " + ex.Message);
                     if (ex.InnerException != null)
                         Debug.WriteLine("Exception Inner:   " + ex.InnerException);
@@ -188,6 +200,7 @@ public class HomeController : Controller
                 mail.Body = $"<p>{form.Name} has filled out a contact form. Phone number: {form.Phone}</p>";
                 SmtpServer.Host = "10.0.9.73";
                 SmtpServer.Port = 25;
+                SmtpServer.Credentials = new NetworkCredential("admin@sunpartners.local", "Linkclicker_02!");
                 SmtpServer.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
                 try
                 {
@@ -195,6 +208,12 @@ public class HomeController : Controller
                 }
                 catch (Exception ex)
                 {
+                    _logger.LogInformation(ex.ToString());
+                    using (EventLog eventLog = new EventLog("Application"))
+                    {
+                        eventLog.Source = "Application";
+                        eventLog.WriteEntry(ex.ToString(), EventLogEntryType.Information);
+                    }
                     Debug.WriteLine("Exception Message: " + ex.Message);
                     if (ex.InnerException != null)
                         Debug.WriteLine("Exception Inner:   " + ex.InnerException);
@@ -203,8 +222,14 @@ public class HomeController : Controller
 
             return RedirectToAction("ContactThankYou");
         }
-        catch
+        catch (Exception ex)
         {
+            _logger.LogInformation(ex.ToString());
+            using (EventLog eventLog = new EventLog("Application"))
+            {
+                eventLog.Source = "Application";
+                eventLog.WriteEntry(ex.ToString(), EventLogEntryType.Information);
+            }
             return RedirectToAction("Error");
         }
 
@@ -269,16 +294,17 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> Download(string file)
     {
-        var client = new AsyncFtpClient("10.0.9.73");
-        client.Config.ValidateAnyCertificate = true;
-        await client.Connect();
+        var token = new CancellationToken();
+        using (var client = new AsyncFtpClient("10.0.9.73", "admin", "Linkclicker_02!"))
+        {
+            await client.Connect(token);
 
-        var downloadPath = $"/uploads/{file}";
+            var downloadPath = $"/uploads/{file}";
 
-        var filePath = _appEnvironment.WebRootPath + $"/uploads/{file}";
-        var res = await client.DownloadFile($"{_appEnvironment.WebRootPath}/uploads/{file}", file);
-        return Ok(downloadPath);
+            var filePath = _appEnvironment.WebRootPath + $"/uploads/{file}";
+            var res = await client.DownloadFile($"{_appEnvironment.WebRootPath}/uploads/{file}", file);
+            return Ok(downloadPath);
+        }
      }
-
     #endregion
 }

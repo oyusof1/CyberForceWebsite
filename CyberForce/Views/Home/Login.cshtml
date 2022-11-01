@@ -32,20 +32,12 @@
 
         $("#password-error, #email-error").removeClass("form-floating")
 
-
-        $("#loginForm").validate({
-                password: {
-                    required: true
-                }
-            },
-            errorClass: "invalid"
-        });
-
         $form.on("blur", () => {
             if ($form.valid()) {
                 $submitbutton.removeAttr("disabled");
             } else {
                 $submitbutton.attr("disabled", "disabled");
             }
-        });</script>
+        });
+    </script>
 }

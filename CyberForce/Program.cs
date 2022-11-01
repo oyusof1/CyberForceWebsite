@@ -7,7 +7,12 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+var logger = LoggerFactory.Create(config =>
+{
+    config.AddConsole();
+}).CreateLogger("Program");
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
