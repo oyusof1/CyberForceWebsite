@@ -38,8 +38,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @*@foreach (var array in Model.solarArrays)*@
-                                @*{
+                                @foreach (var array in Model.solarArrays)
+                                {
                                     <tr>
                                         <td>@array.ArrayId</td>
                                         <td>@array.SolarStatus</td>
@@ -49,7 +49,7 @@
                                         <td>@array.TrackerTilt</td>
                                         <td>@array.AzimuthAngle</td>
                                     </tr>
-                                }*@
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -68,12 +68,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @*@foreach (var array in Model.solarArrays)
+                                @foreach (var array in Model.solarArrays)
                                 {
                                     <tr>
                                         <td>@array.PowerGeneration</td>
                                     </tr>
-                                }*@
+                                }
                             </tbody>
                         </table>
                     </div>

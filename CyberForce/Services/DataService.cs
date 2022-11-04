@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.DirectoryServices.AccountManagement;
 using System.DirectoryServices.ActiveDirectory;
 using System.Security.Claims;
@@ -34,30 +36,44 @@ namespace CyberForce.Services
         {
             List<SolarArray> list = new List<SolarArray>();
 
-            using (MySqlConnection conn = GetConnection())
+            try
             {
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from solar_arrays;", conn);
-
-                using (var reader = cmd.ExecuteReader())
+                using (MySqlConnection conn = GetConnection())
                 {
-                    while (reader.Read())
+                    conn.Open();
+                    MySqlCommand cmd = new MySqlCommand("select * from solar_arrays;", conn);
+
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        list.Add(new SolarArray()
+                        while (reader.Read())
                         {
-                            ArrayId = Convert.ToInt32(reader["arrayID"]),
-                            SolarStatus = Convert.ToInt32(reader["solarStatus"]),
-                            OutputVoltage = Convert.ToInt32(reader["arrayVoltage"]),
-                            OutputCurrent = Convert.ToInt32(reader["arrayCurrent"]),
-                            Temperature = Convert.ToInt32(reader["arrayTemp"]),
-                            TrackerTilt = Convert.ToInt32(reader["trackerTilt"]),
-                            AzimuthAngle = Convert.ToInt32(reader["trackerAzimuth"]),
-                            PowerGeneration = (Convert.ToInt32(reader["arrayCurrent"]) * Convert.ToInt32(reader["arrayCurrent"]))
-                        });
+                            list.Add(new SolarArray()
+                            {
+                                ArrayId = Convert.ToInt32(reader["arrayID"]),
+                                SolarStatus = Convert.ToInt32(reader["solarStatus"]),
+                                OutputVoltage = Convert.ToInt32(reader["arrayVoltage"]),
+                                OutputCurrent = Convert.ToInt32(reader["arrayCurrent"]),
+                                Temperature = Convert.ToInt32(reader["arrayTemp"]),
+                                TrackerTilt = Convert.ToInt32(reader["trackerTilt"]),
+                                AzimuthAngle = Convert.ToInt32(reader["trackerAzimuth"]),
+                                PowerGeneration = (Convert.ToInt32(reader["arrayCurrent"]) * Convert.ToInt32(reader["arrayCurrent"]))
+                            });
+                        }
                     }
                 }
+                return list;
+
             }
-            return list;
+            catch (Exception ex)
+            {
+                using (EventLog eventLog = new EventLog("Application"))
+                {
+                    eventLog.Source = "Application";
+                    eventLog.WriteEntry(ex.ToString(), EventLogEntryType.Information);
+                }
+                return list;
+
+            }
         }
 
         public async Task<String[]> GetFtpListItems()

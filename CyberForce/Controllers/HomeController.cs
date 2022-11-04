@@ -32,7 +32,6 @@ public class HomeController : Controller
     private readonly IConfiguration _configuration;
     private readonly IWebHostEnvironment _appEnvironment;
     private readonly string _connectionString;
-    //private EventLog eventLog;
 
     public HomeController(ILogger<HomeController> logger, IConfiguration configuration, IWebHostEnvironment appEnvironment)
     {
@@ -40,22 +39,17 @@ public class HomeController : Controller
         _configuration = configuration;
         _appEnvironment = appEnvironment;
         _connectionString = _configuration.GetConnectionString("DefaultConnection");
-        //eventLog = log;
-        //eventLog.Source = "WebApp";
-
     }
 
     #region Views
     [AllowAnonymous]
     public IActionResult Index()
     {
-        //IndexViewModel vm = new();
-        //string _connectionString = _configuration.GetConnectionString("DefaultConnection");
-        //List<SolarArray> solarArrays = new();
-        //DataService service = new DataService(_connectionString);
-        //vm.solarArrays = service.GetSolarArrays();
+        IndexViewModel vm = new();
+        DataService service = new DataService(_connectionString);
+        vm.solarArrays = service.GetSolarArrays();
 
-        return View();
+        return View(vm);
     }
 
     [AllowAnonymous]

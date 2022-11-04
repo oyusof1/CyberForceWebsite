@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gUCrTHR/Gn6e3CTnzumelnZjXtJFN1ig/0U+k7KtlUc=",
+  "Hash": "Lzgm6+fh7Rf9ZzFrRAJb2/LjvjcNf2C9HlL5pg471ts=",
   "Source": "CyberForce",
   "BasePath": "_content/CyberForce",
   "Mode": "Default",
@@ -1256,6 +1256,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/vita.png"
+    },
+    {
+      "Identity": "/Users/xijkstra/Projects/CyberForce/CyberForce/wwwroot/vita11.png",
+      "SourceId": "CyberForce",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/xijkstra/Projects/CyberForce/CyberForce/wwwroot/",
+      "BasePath": "_content/CyberForce",
+      "RelativePath": "vita11.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/vita11.png"
     }
   ]
 }
